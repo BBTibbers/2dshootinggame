@@ -1,0 +1,68 @@
+# ===================================
+# Unity 기본 무시 목록
+# ===================================
+
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Mm]emoryCaptures/
+UserSettings/
+
+# Unity 빌드 결과물
+*.apk
+*.aab
+*.unitypackage
+*.app
+*.exe
+*.zip
+
+# Visual Studio 관련
+.vs/
+.vscode/
+*.csproj
+*.sln
+*.suo
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+desktop.ini
+
+# JetBrains Rider
+.idea/
+*.sln.iml
+
+# 기타
+.DS_Store
+sysinfo.txt
+*.tmproj
+*.tmTheme
+*.pidb.meta
+
+# 로그나 기타 임시 파일
+*.log
+*.bak
+
+# Git LFS로 관리할 경우 (원하면 따로 설정)
+# *.png
+# *.psd
+# *.fbx
+# *.wav
+# *.mp4
+
+# 빌드 시간에 자동 생성되는 것들
+Build/
+exe/
+Recordings/
+PlayerData.json
