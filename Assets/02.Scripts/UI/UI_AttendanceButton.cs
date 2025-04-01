@@ -25,10 +25,11 @@ public class UI_AttendanceButton : MonoBehaviour, IPointerDownHandler, IPointerU
     public Sprite GoldSprite;
     public Sprite DiamonSprite;
     private bool _isShinyPlaying = false;
+    private Attendance _attendance;
 
     public void Start()
     {
-        Attendance attendance = AttendanceManager.Instance.Attendances[Day-1];
+        _attendance = AttendanceManager.Instance.Attendances[Day];
         
         _rectTransform  = GetComponent<RectTransform>();
         _pannelTransform = AttendancePanel.GetComponent<RectTransform>();
@@ -40,10 +41,10 @@ public class UI_AttendanceButton : MonoBehaviour, IPointerDownHandler, IPointerU
 
         DayText.text = $"Day {Day}";
 
-        AmountText.text = attendance.Data.RewardAmount.ToString();
+        AmountText.text = _attendance.Data.RewardAmount.ToString();
 
 
-        if(attendance.Data.RewardCurrencyType == CurrencyType.Gold)
+        if(_attendance.Data.RewardCurrencyType == CurrencyType.Gold)
         {
             IconImage.sprite = GoldSprite;
         }
@@ -51,9 +52,16 @@ public class UI_AttendanceButton : MonoBehaviour, IPointerDownHandler, IPointerU
         {
             IconImage.sprite = DiamonSprite;
         }
-        Debug.Log(attendance.Data.Day);
-        Debug.Log(attendance.IsRewarded);
-        if (attendance.Data.Day > AttendanceManager.Instance.GetAttendanceCount()||attendance.IsRewarded==true)
+        Debug.Log(_attendance.Data.Day);
+        Debug.Log(_attendance.IsRewarded);
+
+        Refresh();
+
+    }
+
+    private void Refresh()
+    {
+        if (_attendance.Data.Day > AttendanceManager.Instance.GetAttendanceCount() || _attendance.IsRewarded == true)
         {
             GetComponent<Button>().interactable = false;
         }
@@ -61,7 +69,6 @@ public class UI_AttendanceButton : MonoBehaviour, IPointerDownHandler, IPointerU
         {
             GetComponent<Button>().interactable = true;
         }
-
     }
 
     public void OnClickAttendancePopUp()
@@ -95,6 +102,8 @@ public class UI_AttendanceButton : MonoBehaviour, IPointerDownHandler, IPointerU
     public void OnClickCheckOut()
     {
         StartCoroutine(PlayShinyEffect());
+        AttendanceManager.Instance.TryGetReward(_attendance);
+        Refresh();
     }
     private IEnumerator PlayShinyEffect()
     {
